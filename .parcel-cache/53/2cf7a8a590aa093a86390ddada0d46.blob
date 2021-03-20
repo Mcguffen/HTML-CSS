@@ -1,0 +1,28 @@
+var div1 = document.getElementById('八卦');
+// var a:string = "hi"
+// // Uncaught SyntaxError: Unexpected token ':' 出乎意料的字符串： 说明浏览器 默认不支持ts的变量类型声明
+// // 解决办法 npx parcel index.html
+// console.log(a)
+// console.log(div1)
+// console.log("1")
+// 设置个开关 来判断什么时候可以拖拽什么时候停下。
+var dragging = false;
+// 记录鼠标位置
+var position = [0, 0];
+// div1 不为空执行下面
+if (div1) {
+  // 鼠标点下不松
+  div1.onmousedown = e => {
+    // lastX = e.clientX
+    // lastY = e.clientY
+    // // console.log("原始位置"+e.clientX,e.clientY)
+    dragging = true;
+    // 鼠标按下的时候记录鼠标位置
+    position = [e.clientX, e.clientY];
+  };
+  if (document) {}
+  // 鼠标松开
+  document.onmouseup = e => {
+    dragging = false;
+  };
+}

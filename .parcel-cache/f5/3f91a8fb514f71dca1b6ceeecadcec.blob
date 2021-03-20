@@ -1,0 +1,166 @@
+body{
+    background: #eee;
+}
+* {
+    /*改变盒模型*/
+    box-sizing: border-box;
+    /* 去掉默认边距 */
+    padding: 0;
+    margin: 0;
+
+}
+/*声明关键帧*/
+@keyframes x {
+    /* 一开始的位置 */
+    form{
+        /* 一开始转0度 */
+        transform: rotate(0deg);
+    }
+    /* 最后 转360度*/
+    to{
+        transform: rotate(360deg);
+    }
+}
+#八卦{
+    /* border: 1px solid red; */
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    position: relative;
+    /*超过我的部分隐藏*/
+    overflow: hidden;
+    /*加动画 去声明关键帧 然后 怎么一直转 加infinite意思无限的*/
+    /* 转的也太不自然了吧 加一个linear 线性的转  感觉快就调大，1s一圈改10s一圈试试*/
+    /* 参数顺序不重要 会自动匹配 */
+    animation: x 10s infinite linear;
+    /* 总觉八卦不明显 加一个css3属性 */
+    /* 不会用就搜 你要的属性+generator */
+    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.75);
+}
+/* 媒体查询 为手机页面做适配 当你的设备页面<=500px的时候元素样式八卦宽高变成下面 */
+@media(max-width: 500px){
+    #八卦{
+        width: 200px;
+        height: 200px;
+    }
+}
+#八卦>div:first-child{
+    /* border: 3px solid black;; */
+    width: 50%;
+    height: 100%;
+    position:absolute;
+    left: 0;
+    background: black;
+}
+#八卦>div:nth-child(2){
+    /* border: 3px solid white;; */
+    height: 100%;
+    width: 50%;
+    position:absolute;
+    right: 0;
+    background: white;
+}
+#八卦>div:nth-child(3){
+    /* border: 3px solid rgb(184, 45, 45);; */
+    height: 200px;
+    width: 200px;
+    position:absolute;
+    left: 50%;
+    /*往左自身一半距离*/
+    margin-left: -100px;
+    border-radius: 50%;
+    background: black;
+}
+@media(max-width: 500px){
+    #八卦>div:nth-child(3){
+        /* border: 3px solid rgb(184, 45, 45);; */
+        height: 100px;
+        width: 100px;
+    /*往左自身一半距离*/
+        margin-left: -50px;
+    }
+}
+#八卦>div:nth-child(4){
+    /* border: 3px solid rgb(184, 45, 45);; */
+    height: 200px;
+    width: 200px;
+    position:absolute;
+    left: 50%;
+    /*下去*/
+    bottom: 0;
+    /*往左自身一半距离*/
+    margin-left: -100px;
+    border-radius: 50%;
+    background: white;
+}
+@media(max-width: 500px){
+    #八卦>div:nth-child(4){
+        /* border: 3px solid rgb(184, 45, 45);; */
+        height: 100px;
+        width: 100px;
+        bottom: 0;
+    /*往左自身一半距离*/
+        margin-left: -50px;
+    }
+}
+#八卦>div:nth-child(5){
+    /* border: 3px solid rgb(184, 45, 45);; */
+    height: 50px;
+    width: 50px;
+    position:absolute;
+    left: 50%;
+    top:75px;
+    /*往左自身一半距离*/
+    margin-left: -25px;
+    border-radius: 50%;
+    background: white;
+}
+@media(max-width: 500px){
+    #八卦>div:nth-child(5){
+        /* border: 3px solid rgb(184, 45, 45);; */
+        height: 25px;
+        width: 25px;
+        top:37.5px;
+    /*往左自身一半距离*/
+        margin-left: -12.5px;
+    }
+}
+#八卦>div:nth-child(6){
+    /* border: 3px solid rgb(184, 45, 45);; */
+    height: 50px;
+    width: 50px;
+    position:absolute;
+    left: 50%;
+    bottom:75px;
+    /*往左自身一半距离*/
+    margin-left: -25px;
+    border-radius: 50%;
+    background: black;
+}
+@media(max-width: 500px){
+    #八卦>div:nth-child(6){
+        /* border: 3px solid rgb(184, 45, 45);; */
+        height: 25px;
+        width: 25px;
+        bottom:37.5px;
+    /*往左自身一半距离*/
+        margin-left: -12.5px;
+    }
+}
+
+#八卦-wrapper{
+    /* border: 10px solid red; */
+    /* 用户可以看到的视角范围 vh=viewpoint height 宽度可以自适应所以不需要设置*/
+    height: 100vh;
+    /* 如何剧中 下面三行记住 用的时候就记住简写 比如 df jcc aic*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex默认把里面的元素一字排开 所以我们吧字包到div也没有出现div上下布局 所以用下面的 */
+    /* 默认是横着一字排开 现在我们改成竖着一字排开 */
+    flex-direction: column;
+}
+#八卦-描述{
+    /* 1em一个字的宽度 为什么不用像素 可以用啊 1em大概16px大概 */
+    margin-top: 1em;
+}

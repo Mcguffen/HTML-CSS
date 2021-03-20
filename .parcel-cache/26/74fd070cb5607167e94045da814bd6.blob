@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>太极八卦图</title>
+    <link rel="stylesheet" href="563fd50d718577864c67592ae4509f0a">
+</head>
+<body>
+    <!-- 如何让八卦水平剧中 垂直剧中呢？先准备个容器div 取名id="八卦-wrapper" -->
+    <div id="八卦-wrapper">
+        <div id="八卦">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <!-- 发现字跑上面去了 那么就单独包起来 -->
+        <!-- 我们感觉字和八卦中间一点缝隙没有 那么我们就单独给字加id写css样式 -->
+        <div id="八卦-描述">
+            道可道,非常道.
+        </div>
+    </div>
+    <script src="acb33a4f2a80164d4d0a657f1ec92f7b"></script>
+</body>
+</html>
