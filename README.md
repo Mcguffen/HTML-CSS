@@ -15,6 +15,7 @@ modify 修改
 #### 创建目录
 创建新目录不要用中文
 #### 写代码
+##### 完成一个html 画一个太极图
 - 思路：想好再开始写代码，首先我用是想用几个div来做。
 - 起手式：!+tap 创建html页面 lang="zh" 语言选中文
 - 在body内创建一个div 取个id名（id是可以用中文的） 单独加样式
@@ -366,9 +367,294 @@ body{
 }
 ```
 以上 已经完成一个八卦了 下面取加css3的动画
-- 加动画 让八卦转起来
+##### 加动画 让八卦转起来
+-     animation: x 10s infinite linear;
+
+```
+#八卦{
+    /* border: 1px solid red; */
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    position: relative;
+    /*超过我的部分隐藏*/
+    overflow: hidden;
+    /*加动画 去声明关键帧 然后 怎么一直转 加infinite意思无限的*/
+    /* 转的也太不自然了吧 加一个linear 线性的转  感觉快就调大，1s一圈改10s一圈试试*/
+    /* 参数顺序不重要 会自动匹配 */
+    animation: x 10s infinite linear;
+    /* 总觉八卦不明显 加一个css3属性 阴影 */
+    /* 不会用就搜 你要的属性+generator */
+    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.75);
+}
+```
+x是啥？是我们要声明的关键帧
+```
+/*声明关键帧，这个动画一些关键的位置*/
+@keyframes x {
+    /* 一开始的位置 */
+    form{
+        /* 一开始转0度 */
+        transform: rotate(0deg);
+    }
+    /* 最后 转360度*/
+    to{
+        transform: rotate(360deg);
+    }
+}
+```
+下面属性 css3属性 添加阴影 让八卦更明显
+```
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.75);
+```
+然后，刷新页面，八卦转了起来。
+那如何让八卦水平居中和垂直居中呢？
+
+首先，给八卦这个div一个容器
+```
+<div id="八卦-wrapper"></div>
+```
+用它来包所有的div
+```
+#八卦-wrapper{
+    border: 10px solid red;
+}
+```
+我们发现这个div并没有和页面重合，这是因为body又一个默认的那边距。或者我们把所有的那边距都删掉
+```
+* {
+    /*改变盒模型*/
+    box-sizing: border-box;
+    /* 去掉默认边距 */
+    padding: 0;
+    margin: 0;
+
+}
+```
+这样八卦-wrapper这个div就和页面重合（左上右）了。
+发现这个div的高度没有和页面一样。
+```
+#八卦-wrapper{
+    border: 10px solid red;
+    /* 用户可以看到的视角范围 vh=viewpoint height 宽度可以自适应所以不需要设置*/
+    height: 100vh;
+}
+```
+vh=viewpoint height(用户可视范围) 宽度可以自适应所以不需要设置。
+
+那么如何让八卦-wrapper这个div里面的div居中？
 - 用flex做居中
+首先让八卦-wrapper这个div
+```
+#八卦-wrapper{
+    /* border: 10px solid red; */
+    /* 用户可以看到的视角范围 vh=viewpoint height 宽度可以自适应所以不需要设置*/
+    height: 100vh;
+    /* 如何剧中 下面三行记住 用的时候就记住简写 比如 df jcc aic*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex默认把里面的元素一字排开 所以我们吧字包到div也没有出现div上下布局 所以用下面的 */
+
+}
+```
+八卦居中了，但是为什么字没有，字跑八卦右边了？
+把字用div保住，为啥还是没有上下还是左右？
+```
+    /* 默认是横着一字排开 现在我们改成竖着一字排开 */
+    flex-direction: column;
+```
+字和八卦也挨着得太近了
+给包着字的div 取名id="八卦-描述"
+```
+#八卦-描述{
+    /* 1em一个字的宽度 为什么不用像素 可以用啊 1em大概16px大概 */
+    margin-top: 1em;
+}
+```
+这样就完成了居中
+##### 做手机适配
+咋做手机页面？打开开发者工具f12按下去
+选中手机/ipad图标，你发现这八卦也太大了把？把它弄小？nono不是说不行，那pc页面的八卦大小你怎么不觉着大呢？所以我们应该为手机写一个配置。手机上html一定要有这行代码
+ ``` html
+ <meta name="viewport" content="width-device-width,initial-scale=1.0"> 
+```
+没有这行 就像你用诺基亚老爷机看这个页面。
+所以我们需要
+媒体查询
+当你的媒体设备哦跑最大宽度 < =500px的时候就为下面元素的添加额外的样式是这样
+``` css
+@media(max-width: 500px){
+    #八卦{
+        样式
+    }
+}
+```
+所以，相当于另外写一套·适合手机看的配置
+样式如下
+``` css
+#八卦{
+    /* border: 1px solid red; */
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    position: relative;
+    /*超过我的部分隐藏*/
+    overflow: hidden;
+    /*加动画 去声明关键帧 然后 怎么一直转 加infinite意思无限的*/
+    /* 转的也太不自然了吧 加一个linear 线性的转  感觉快就调大，1s一圈改10s一圈试试*/
+    /* 参数顺序不重要 会自动匹配 */
+    animation: x 10s infinite linear;
+    /* 总觉八卦不明显 加一个css3属性 阴影 */
+    /* 不会用就搜 你要的属性+generator */
+    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.75);
+}
+/* 媒体查询 为手机页面做适配 当你的设备页面<=500px的时候元素样式八卦宽高变成下面 */
+@media(max-width: 500px){
+    #八卦{
+        width: 200px;
+        height: 200px;
+    }
+}
+#八卦>div:first-child{
+    /* border: 3px solid black;; */
+    width: 50%;
+    height: 100%;
+    position:absolute;
+    left: 0;
+    background: black;
+}
+#八卦>div:nth-child(2){
+    /* border: 3px solid white;; */
+    height: 100%;
+    width: 50%;
+    position:absolute;
+    right: 0;
+    background: white;
+}
+#八卦>div:nth-child(3){
+    /* border: 3px solid rgb(184, 45, 45);; */
+    height: 200px;
+    width: 200px;
+    position:absolute;
+    left: 50%;
+    /*往左自身一半距离*/
+    margin-left: -100px;
+    border-radius: 50%;
+    background: black;
+}
+@media(max-width: 500px){
+    #八卦>div:nth-child(3){
+        /* border: 3px solid rgb(184, 45, 45);; */
+        height: 100px;
+        width: 100px;
+    /*往左自身一半距离*/
+        margin-left: -50px;
+    }
+}
+#八卦>div:nth-child(4){
+    /* border: 3px solid rgb(184, 45, 45);; */
+    height: 200px;
+    width: 200px;
+    position:absolute;
+    left: 50%;
+    /*下去*/
+    bottom: 0;
+    /*往左自身一半距离*/
+    margin-left: -100px;
+    border-radius: 50%;
+    background: white;
+}
+@media(max-width: 500px){
+    #八卦>div:nth-child(4){
+        /* border: 3px solid rgb(184, 45, 45);; */
+        height: 100px;
+        width: 100px;
+        bottom: 0;
+    /*往左自身一半距离*/
+        margin-left: -50px;
+    }
+}
+#八卦>div:nth-child(5){
+    /* border: 3px solid rgb(184, 45, 45);; */
+    height: 50px;
+    width: 50px;
+    position:absolute;
+    left: 50%;
+    top:75px;
+    /*往左自身一半距离*/
+    margin-left: -25px;
+    border-radius: 50%;
+    background: white;
+}
+@media(max-width: 500px){
+    #八卦>div:nth-child(5){
+        /* border: 3px solid rgb(184, 45, 45);; */
+        height: 25px;
+        width: 25px;
+        top:37.5px;
+    /*往左自身一半距离*/
+        margin-left: -12.5px;
+    }
+}
+#八卦>div:nth-child(6){
+    /* border: 3px solid rgb(184, 45, 45);; */
+    height: 50px;
+    width: 50px;
+    position:absolute;
+    left: 50%;
+    bottom:75px;
+    /*往左自身一半距离*/
+    margin-left: -25px;
+    border-radius: 50%;
+    background: black;
+}
+@media(max-width: 500px){
+    #八卦>div:nth-child(6){
+        /* border: 3px solid rgb(184, 45, 45);; */
+        height: 25px;
+        width: 25px;
+        bottom:37.5px;
+    /*往左自身一半距离*/
+        margin-left: -12.5px;
+    }
+}
+```
+其实就是将pc页面样式里面的宽高啥的除以2
+以适应手机页面，我们发现了用px的坏处
+问题：像素px是不是绝对固定单位？
+答案：如果用户在不改变分辨率的情况是固定的。
+
+
 #### 部署
+部署就很简单啊。
+如果是本地项目想提交到github
+先在github上创建项目
+第一次会有提示命令如下：
+``` bash
+git remote add origin git@github.com:Mcguffen/项目名.git
+git push --set-upstream origin master
+```
+然后 
+命令行
+git初始化我们的本地项目
+``` bash
+git init
+git add .
+git commit -m "你想写的话"
+git remote add origin git@github.com:Mcguffen/项目名.git
+git pull // 第一次创建项目有不用 不过打了也没啥影响
+git push --set-upstream origin master
+
+```
+以后这个项目有修改只需要
+```
+git add .
+git commit -m "你想写的话"
+git pull // 第一次创建项目有不用 不过打了也没啥影响
+git push 提交到github
+```
+然后在项目的设置选择GitHub Pages/Source/master这个分之 然后save就会给你项目的预览链接
 
 #### 加入ts
 #### 后顾的时候再补坑吧
@@ -406,3 +692,14 @@ body{
 overflow: hidden;
 - 什么样的css才是好css？
 删一行都不行，没有重复的（可以后边再优化）
+
+#### 反思
+做一个项目最好还好是先创建git仓库
+这样每做完一点功能或者样式 就可以提交 
+提交的时候注释好内容git commit -m “xxx”
+这样回顾的时候就可以看github看每一次提交。
+但是这样也有不好的地方
+总结回顾还是最好自己写博客记录下来
+当然只是想快速回顾自己写的内容还是可以的，如果不嫌弃麻烦的话。
+反正好记性不如烂笔头。
+如果有一个可以展示项目从0到有过程的东西就好了。
