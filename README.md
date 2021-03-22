@@ -650,7 +650,7 @@ git push --set-upstream origin master
 以后这个项目有修改只需要
 ```
 git add .
-git commit -m "你想写的话"
+git commit -m "你想写的话" //提交到本地git仓库的暂缓和区
 git pull // 第一次创建项目有不用 不过打了也没啥影响
 git push 提交到github
 ```
@@ -698,7 +698,7 @@ overflow: hidden;
 这样每做完一点功能或者样式 就可以提交 
 提交的时候注释好内容git commit -m “xxx”
 这样回顾的时候就可以看github看每一次提交。
-但是这样也有不好的地方
+
 总结回顾还是最好自己写博客记录下来
 当然只是想快速回顾自己写的内容还是可以的，如果不嫌弃麻烦的话。
 反正好记性不如烂笔头。
